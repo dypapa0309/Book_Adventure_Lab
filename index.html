@@ -1,0 +1,485 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>책모험 연구소 | Book Adventure Lab</title>
+  <meta name="description" content="책에서 세상으로 이어지는 체험형 독서·논술. 문해력과 사고력으로 AI 시대의 자기 길을 만드는 교육 – 책모험 연구소 (Book Adventure Lab)." />
+  <meta name="theme-color" content="#0f172a" />
+  <style>
+    /* ===== Base & Tokens ===== */
+    :root{
+      --bg: #ffffff;
+      --bg-alt: #f8fafc; /* slate-50 */
+      --ink: #0f172a;    /* slate-900 */
+      --ink-2: #334155;  /* slate-700 */
+      --ink-3: #64748b;  /* slate-500 */
+      --line: #e2e8f0;   /* slate-200 */
+      --brand: #0f172a;
+      --radius: 16px;
+      --w-wide: 1100px;
+      --w-narrow: 72ch; /* for longform readability */
+    }
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{
+      margin:0;
+      font-family:ui-sans-serif,system-ui,-apple-system,"Apple SD Gothic Neo","Noto Sans KR",Segoe UI,Roboto,Arial,"Apple Color Emoji","Segoe UI Emoji";
+      color:var(--ink);
+      background:var(--bg);
+      font-size:17px;
+      line-height:1.85;
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+    }
+    img{max-width:100%;display:block}
+    svg{max-width:100%;height:auto;display:block;overflow:visible}
+    a{color:inherit;text-decoration:none}
+
+    .container{max-width:var(--w-wide);margin:0 auto;padding:0 20px}
+    .content{max-width:var(--w-narrow);margin:0 auto}
+    .section{padding:96px 0}
+
+    /* ===== Readability Rhythm ===== */
+    p{margin:10px 0 18px;color:var(--ink-2)}
+    .content > p + p{margin-top:16px}
+    .content > p.lead + p{margin-top:18px}
+    .tight{margin-top:8px;margin-bottom:8px}
+    .highlight{background:linear-gradient(transparent 72%, #e0f2fe 0); display:inline}
+    .tip{background:#f8fafc;border:1px solid var(--line);border-radius:12px;padding:14px 16px;margin-top:18px;font-size:15px}
+
+    /* ===== Type Scale ===== */
+    h1,h2,h3{line-height:1.2;margin:0 0 10px}
+    h1{font-size:clamp(30px,4vw,46px);font-weight:800;letter-spacing:-.01em}
+    h2{font-size:clamp(24px,3vw,34px);font-weight:800;letter-spacing:-.01em;margin-top:2px}
+    h3{font-size:clamp(18px,2vw,22px);font-weight:700;margin-top:26px}
+    .lead{font-size:clamp(18px,2.2vw,21px);color:var(--ink);margin-top:12px}
+    .muted{color:var(--ink-3)}
+    .badge{letter-spacing:.18em;text-transform:uppercase;font-size:12px;color:var(--ink-3)}
+
+    /* ===== Nav & Progress ===== */
+    .nav{position:sticky;top:0;z-index:60;background:rgba(255,255,255,.72);backdrop-filter:saturate(180%) blur(10px);border-bottom:1px solid var(--line)}
+    .nav-inner{display:flex;align-items:center;justify-content:space-between;padding:14px 0}
+    .nav-menu{display:none;gap:18px;color:var(--ink-2);font-size:14px}
+    .nav a:hover{opacity:.9}
+    @media(min-width:900px){.nav-menu{display:flex}.nav-cta-sm{display:none}}
+    .progress{position:fixed;top:0;left:0;height:3px;background:var(--brand);width:0;z-index:80}
+
+    /* ===== Hero / Prologue ===== */
+    .hero{background:linear-gradient(180deg,var(--bg-alt),#fff)}
+    .kv{border:1px solid var(--line);border-radius:16px;padding:24px;background:linear-gradient(135deg,#f1f5f9,#e2e8f0)}
+
+    /* ===== Dividers & Pullquotes ===== */
+    .divider{height:1px;background:var(--line);margin:56px auto;width:min(100%,var(--w-narrow))}
+    .pull{font-size:clamp(19px,2.2vw,24px);line-height:1.5;color:var(--ink)}
+    .pull.card{background:#fff;border:1px solid var(--line);border-left:6px solid #3b82f6;border-radius:16px;padding:18px 20px;margin:24px 0}
+
+    /* ===== Timeline (Vertical) ===== */
+    .timeline{position:relative;margin:20px auto}
+    .timeline::before{content:"";position:absolute;left:12px;top:0;bottom:0;width:2px;background:var(--line)}
+    .item{position:relative;padding-left:40px;margin:18px 0}
+    .dot{position:absolute;left:5px;top:.35em;width:14px;height:14px;border-radius:999px;background:var(--bg);border:2px solid var(--ink-3)}
+    .item h3{margin:0 0 4px}
+
+    /* ===== Details (Accordion) ===== */
+    details summary{list-style:none;cursor:pointer;display:flex;align-items:flex-start;justify-content:space-between;gap:16px}
+    details summary::marker,details summary::-webkit-details-marker{display:none}
+    .chev{transition:transform .25s ease;margin-left:8px}
+    details[open] .chev{transform:rotate(180deg)}
+    details{border:1px solid var(--line);border-radius:16px;padding:20px;background:#fff}
+
+    /* ===== Contact ===== */
+    .iframe{width:100%;border:0}
+    .map{height:280px}
+    .form{height:700px}
+
+    footer{border-top:1px solid var(--line)}
+    .pill{display:inline-block;border-radius:999px;padding:12px 18px}
+    .btn{background:var(--brand);color:#fff}
+    .btn-outline{border:1px solid var(--line)}
+
+    /* ===== New Design Enhancements ===== */
+    .accent{color:#1d4ed8}
+    .h-underline{background:linear-gradient(transparent 70%, #dbeafe 0);display:inline}
+    .bg-fade{position:relative}
+    .bg-fade::before{content:"";position:absolute;inset:-10% -2%;background:
+      radial-gradient(60% 40% at 20% 10%, #eef2ff 0, transparent 60%),
+      radial-gradient(60% 40% at 80% 90%, #f0f9ff 0, transparent 60%);z-index:-1}
+    .chip{display:inline-block;padding:6px 10px;border-radius:999px;background:#eef2ff;color:#1e3a8a;font-size:12px;margin-right:6px}
+    .hero-visual{position:relative;overflow:hidden;border-radius:16px;border:1px solid var(--line);background:linear-gradient(135deg,#eef2ff,#e2e8f0)}
+    .hero-visual::after{content:"";position:absolute;inset:-30% -20%;background:
+      radial-gradient(50% 40% at 30% 20%, rgba(29,78,216,.12), transparent 60%),
+      radial-gradient(60% 40% at 80% 80%, rgba(2,132,199,.12), transparent 60%)}
+    .divider-decor{height:24px;background:linear-gradient(90deg,#e2e8f0,transparent 40%,transparent 60%,#e2e8f0);mask:
+      radial-gradient(12px 12px at 12px 12px,#0000 98%,#000) left,
+      radial-gradient(12px 12px at calc(100% - 12px) 12px,#0000 98%,#000) right;mask-size:51% 100%;mask-repeat:no-repeat}
+    .timeline .icon{width:18px;height:18px;position:absolute;left:-1px;top:.15em;color:#1e40af}
+    .floating-cta{position:fixed;right:16px;bottom:16px;z-index:70;display:inline-flex;align-items:center;gap:10px;background:#111827;color:#fff;border-radius:999px;padding:12px 16px;box-shadow:0 10px 30px rgba(0,0,0,.15)}
+    @media(min-width:920px){.floating-cta{display:none}}
+    @media(prefers-reduced-motion:no-preference){
+      .reveal{opacity:0;transform:translateY(8px);animation:reveal .6s ease forwards}
+      .reveal-2{animation-delay:.1s}
+      .reveal-3{animation-delay:.2s}
+    }
+    @keyframes reveal{to{opacity:1;transform:none}}
+
+    /* Icon diagram labels */
+    .icon-label{font-size:15px;font-weight:800;fill:#0f172a}
+    /* === Center all text inside main content === */
+.content { text-align: center; }
+
+/* Headings & paragraphs keep centered width */
+.content h1, .content h2, .content h3,
+.content p, .content blockquote,
+.content .tip, .content .pull.card {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* === Readability exceptions (keep left-aligned where structure matters) === */
+.content .timeline,
+.content .timeline .item,
+.content ol, .content ul,
+.content details, .content details p,
+.content details summary,
+.content .note {
+  text-align: left;
+}
+
+/* Keep contact list readable */
+#contact .content ul { text-align: left; }
+
+/* Buttons/CTA stay centered by parent .content */
+
+  </style>
+</head>
+<body>
+  <!-- Progress Bar -->
+  <div id="progress" class="progress"></div>
+
+  <!-- Nav -->
+  <header class="nav">
+    <div class="container nav-inner">
+      <a href="#teacher" aria-label="홈으로">책모험 연구소 <span class="muted" style="font-weight:600">· Book Adventure Lab</span></a>
+      <nav class="nav-menu">
+        <a href="#teacher">메인</a>
+        <a href="#philosophy">철학</a>
+        <a href="#curriculum">운영</a>
+        <a href="#programs">레벨 여정</a>
+        <a href="#literacy">문해력·수능(참고)</a>
+        <a href="#parent">학부모에게</a>
+        <a href="#contact">상담</a>
+      </nav>
+      
+    </div>
+  </header>
+
+  <!-- PROLOGUE / TEACHER -->
+  <section id="teacher" class="section hero bg-fade">
+    <div class="container">
+      <div class="content reveal">
+        <p class="badge">Prologue</p>
+        <h1><span class="h-underline">독서하고 생각하는 습관</span>이 <br>제 삶의 방향을 만들었습니다.</h1><br>
+
+        <!-- 3단 리듬으로 분리 -->
+        <p class="lead">어릴 적, <br>논술 선생님이었던 <br>엄마의 식탁에서의 질문. <br><br>그곳이 제 첫 독서 교실이었습니다.</p>
+        <p class="lead"><strong>“그때 왜 그런 걸까?” <br> “만약 네가 그 인물이었다면?”</strong></p>
+       <p></p> 
+        <p>인테리어 전공 후 작곡 활동, <br>이후 8년간 마케팅·콘텐츠 기획, <br>그리고 6만 유튜브 운영까지.
+            <br><br><strong>도전하고 싶은 일이 생기면<br>책들부터 봤습니다.</strong> <br><br>서로 다른 길을 걸었지만 중심에는 <br>늘 <strong>읽고, 질문하고, 표현하는 힘</strong>이 있었습니다.</p>
+        <p>이제 그 힘을 아이들에게 건네려 합니다.</p>
+
+        <p class="reveal-2"><span class="highlight">AI 시대, <br>대체되지 않는 힘은 <br><strong>의미를 해석하고 방향을 정하는 능력</strong>입니다.<br><br></span> 단순히 읽고 쓰는 기술이 아니라 <br><strong class="accent">사고를 구조화하는 법</strong>을 함께 배웁니다.</p>
+
+        <div style="margin-top:18px;display:flex;gap:12px;flex-wrap:wrap" class="reveal-3">
+          
+        </div>
+      </div>
+
+      <div class="divider" aria-hidden></div>
+      
+
+    
+    </div>
+  </section>
+
+  <!-- CHAPTER 1 / PHILOSOPHY -->
+  <section id="philosophy" class="section">
+    <div class="container">
+      <div class="content">
+        <p class="badge">Chapter 1</p>
+        <h2>읽는다는 건, <span class="h-underline">살아본다는 것</span></h2><br>
+        <p class="lead">책 속에서 발견한 질문이 <br>현실로 이어질 때, <br>배움이 비로소 살아 숨쉽니다. <br>
+            <br>우리는 ‘정답’을 배우는 독서가 아니라, <br><strong>‘질문’을 키우고 <br>‘경험’으로 이어지는 독서를 합니다.</strong></p>
+        <p>아이들은 글을 읽으며 궁금함을 수집합니다. <br><br><strong>왜? 어떻게? 만약? </strong><br><br>질문을 스스로 던지고, <br>그 질문을 들고 밖으로 나갑니다.</p>
+        <p>현장 체험과 관찰, <br>작은 실험, 영상 자료 탐구로 <br>책과 세계를 연결합니다. 
+            <br><br>마지막에는 글과 말로 <br>자신의 생각을 구조화합니다.</p>
+
+        <!-- 인용문 (2줄 버전, 여백 최적화) -->
+<blockquote class="pull card" style="padding:24px 22px; text-align:center; line-height:1.6;">
+  “책에서 시작해, 세상에서 자라고,<br>
+  다시 글로 돌아오는 순환.”
+</blockquote>
+
+        
+    </div>
+  </section>
+
+  <!-- CHAPTER 2 / CURRICULUM (TIMELINE) -->
+  <section id="curriculum" class="section" style="background:var(--bg-alt)">
+    <div class="container">
+      <div class="content">
+        <p class="badge">Chapter 2</p>
+        <h2>연결형 독서·논술 운영 방식</h2>
+        <p>책에서 세상으로 이어지는 <br>순환 구조를 단계별로 안내합니다.</p>
+
+        <ol class="timeline">
+          <li class="item"><span class="dot"></span>
+            <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6 17V7a2 2 0 0 1 2-2h7l5 5v7"/></svg>
+            <h3>책 선정</h3>
+            <p>교사 추천 또는 학생 토론으로 주제·도서를 선택합니다. 
+          </li>
+
+          <li class="item"><span class="dot"></span>
+            <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h10"/><path d="m16 3 5 5"/></svg>
+            <h3>읽기 + 토의</h3>
+            <p>핵심 개념과 흥미 포인트를 정리하고 질문을 도출합니다. </p>
+          </li>
+
+          <li class="item"><span class="dot"></span>
+            <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a8 8 0 1 0-3.4 3.4L22 22"/></svg>
+            <h3>호기심 확장</h3>
+            <p>탐구 질문을 넓히고 자료를 조사합니다. </p>
+          </li>
+
+        
+          <li class="item"><span class="dot"></span>
+            <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="m8 17 1-5 5-1"/><path d="M16 6 8 14"/></svg>
+            <h3>글쓰기/나눔</h3>
+            <p>독서감상문 또는 짧은 논술로 정리하고, <br>발표·토론으로 마무리합니다.</p>
+          </li>
+
+           <li class="item"><span class="dot"></span>
+            <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 3v18h18"/><path d="m19 9-5 5-4-4-3 3"/></svg>
+            <h3>체험 학습(선택)</h3>
+            <p>박물관·자연·실험·영상 등 현장에서 탐구합니다. </p>
+          </li>
+        </ol>
+      </div>
+    </div>
+  </section>
+
+<!-- CHAPTER 3 / LEVEL JOURNEY (LONGFORM) -->
+<section id="programs" class="section">
+  <div class="container">
+    <div class="content">
+      <p class="badge">Chapter 3</p>
+      <h2>레벨별 여정: <br><span class="h-underline">책 → 호기심 → 탐구 → 표현</span></h2>
+      <p class="muted tight">· 소수 정원(1타임 최대 4명)  <br>· 주 1회 90분 <br>· 읽기 → 대화 → 쓰기 → 피드백</p>
+
+      <h3 style="margin-top:22px">생각의 씨앗 (초3–6)</h3>
+      <p>읽기를 통해 궁금증을 발견하고, <br>스스로 질문을 만들어봅니다.  <br>
+      책 속에서 생긴 호기심이 <br>‘생각의 씨앗’이 되어 <br><span class="h-underline">사고의 첫 출발점을 만듭니다.</span></p>
+      <p class="muted" style="font-size:15px;margin-top:8px">
+        예시 활동 — 주제별 책 1권 읽기 + 궁금한 점 1가지 기록
+      </p>
+
+      <div class="divider-decor" aria-hidden></div>
+
+      <h3>생각의 가지 (중등)</h3>
+      <p>책에서 얻은 질문을 세상과 연결합니다. <br> 
+      탐구·토의·체험을 통해 사고의 범위를 넓히며 <br><span class="h-underline">‘생각의 가지’를 키웁니다.</span></p>
+      <p class="muted" style="font-size:15px;margin-top:8px">
+        예시 활동 — 뉴스·영상 조사 + 짧은 토의 정리문 작성
+      </p>
+
+      <div class="divider-decor" aria-hidden></div>
+
+      <h3>생각의 숲 (고등)</h3>
+      <p>탐구한 내용을 구조화해 글로 표현합니다. <br> 
+      사고의 숲에서 논리적 글쓰기와 자기 시선을 완성하며,
+      <br><span class="h-underline">논술·창의적 에세이로 확장합니다.</span></p>
+      <p class="muted" style="font-size:15px;margin-top:8px">
+        예시 활동 — 시사·철학 주제 논술(600자) + 발표 피드백
+      </p>
+
+      <div class="divider-decor" aria-hidden></div>
+
+      <h3>진로 글쓰기 (선택)</h3>
+      <p>탐구 경험을 자신의 길과 연결합니다.<br>  
+      ‘나의 길’ 에세이를 통해 진로와 가치관을 정리하고,<br>  
+      직업을 ‘가지는’ 것을 넘어 <br><span class="h-underline">‘만드는’ 글쓰기를 실천합니다.</span></p>
+      <p class="muted" style="font-size:15px;margin-top:8px">
+        예시 활동 — 관심 분야 도서 2권 리서치 + ‘나의 길’ 에세이
+      </p>
+    </div>
+  </div>
+</section>
+
+
+  <!-- REFERENCE / LITERACY (ACCORDION, LOW-KEY) -->
+  <section id="literacy" class="section" style="background:var(--bg-alt)">
+    <div class="container">
+      <div class="content">
+        <details>
+          <summary>
+            <div>
+              <p class="badge">Tip</p>
+              <h3>문해력 & 수능 — 참고</h3>
+              <p class="muted" style="font-size:14px">핵심은 ‘문해력’입니다.</p>
+            </div>
+            <span class="muted chev" aria-hidden>▾</span>
+          </summary>
+          <p style="margin-top:10px"><strong>문해력의 힘</strong> — 독서를 많이 하는 아이들에게 교과 내용이 쉬운 이유는 사고 틀이 이미 잡혀 있기 때문입니다. 지문이 낯설어도 구조를 먼저 봅니다.</p>
+          <p><strong>빠른 적응</strong> — 문제의 껍데기가 아니라 논리의 뼈대를 파악하므로 수개월 단위로도 준비가 가능합니다. 입력, 출력이 아닌 패턴을 파악하는 능력이 길러집니다.</p>
+          <p><strong>시험을 넘어</strong> — 문해력은 글을 읽는 힘을 넘어 세상을 읽는 힘입니다. 진로와 창작, 협업 역량으로 확장됩니다.</p>
+          
+        </details>
+      </div>
+    </div>
+  </section>
+
+  <!-- CHAPTER 4 / PARENT NOTE -->
+  <section id="parent" class="section">
+    <div class="container">
+      <div class="content">
+        <p class="badge">Chapter 4</p>
+        <h2><span class="h-underline">아이가 세상을 읽는 법</span></h2>
+        <p><strong>읽기 → 탐구 → 표현</strong>의 <br>3단계 순환을 통해 아이는 책을 넘어 <br>세상을 읽는 사람으로 성장합니다. 
+            <br><br>부모의 역할은 아이를 <br>가볍게 밀어주는 것입니다.</p>
+
+        <!-- 3-Step Icon Diagram (minimal, no arrows) -->
+        <figure class="diagram content" style="margin:18px auto 8px">
+          <svg class="svg-diagram" viewBox="0 0 860 210" role="img" aria-labelledby="flowTitle flowDesc">
+            <title id="flowTitle">책모험 연구소 학습 순환 3단계 아이콘 다이어그램</title>
+            <desc id="flowDesc">읽기 → 탐구 → 표현 순환을 아이콘으로 표시</desc>
+            <defs>
+              <linearGradient id="cSky" x1="0" x2="1">
+                <stop offset="0" stop-color="#dbeafe"/>
+                <stop offset="1" stop-color="#bfdbfe"/>
+              </linearGradient>
+              <linearGradient id="cSoft" x1="0" x2="1">
+                <stop offset="0" stop-color="#eef2ff"/>
+                <stop offset="1" stop-color="#f1f5f9"/>
+              </linearGradient>
+            </defs>
+
+            <!-- Step 1 -->
+            <g transform="translate(70,24)">
+              <circle cx="100" cy="80" r="56" fill="url(#cSky)" stroke="#cbd5e1"/>
+              <g transform="translate(72,60)" stroke="#2563eb" stroke-width="2" fill="none">
+                <path d="M0 30V6a7 7 0 0 1 7-7h40"/>
+                <path d="M56 30V6a7 7 0 0 0-7-7H10"/>
+                <path d="M0 30c12-5 22-5 32 0 10-5 20-5 32 0"/>
+              </g>
+              <text class="icon-label" x="100" y="165" text-anchor="middle">읽기</text>
+            </g>
+
+            <!-- Step 2 -->
+            <g transform="translate(340,24)">
+              <circle cx="100" cy="80" r="56" fill="url(#cSoft)" stroke="#cbd5e1"/>
+              <g transform="translate(72,54)" stroke="#38bdf8" stroke-width="2" fill="none">
+                <circle cx="28" cy="28" r="26"/>
+                <path d="M28 10 L40 44 L16 28 Z"/>
+              </g>
+              <text class="icon-label" x="100" y="165" text-anchor="middle">탐구</text>
+            </g>
+
+            <!-- Step 3 -->
+            <g transform="translate(610,24)">
+              <circle cx="100" cy="80" r="56" fill="url(#cSky)" stroke="#cbd5e1"/>
+              <g transform="translate(78,52)" stroke="#2563eb" stroke-width="2" fill="none">
+                <path d="M6 38C24 18 44 10 48 10c-3 7-11 26-28 36l-22 5z"/>
+                <path d="M18 34l8 8"/>
+              </g>
+              <text class="icon-label" x="100" y="165" text-anchor="middle">표현</text>
+            </g>
+          </svg>
+          <figcaption class="muted" style="text-align:center;font-size:12px;margin-top:6px">3단계 흐름 — 읽기 → 탐구 → 표현</figcaption>
+        </figure><br>
+
+        <p>핵심 개념을 정확히 이해하고 <br>자기 언어로 요약하는 연습, 
+            <br><span class="h-underline">세상과 연결하며 맥락을 체감하는 경험.</span><br> <br>글·발표·토론으로 생각을 <br>타인과 연결하는 훈련이 반복될 때 
+            <br>성장의 곡선이 생깁니다.</p>
+      </div>
+    </div>
+  </section>
+
+<!-- BRIDGE SECTION / SUMMARY & CTA -->
+<section class="section" style="background:hsl(210, 43%, 95%);padding:64px 0">
+  <div class="container">
+    <div class="content" style="text-align:center;max-width:68ch">
+      <h2 style="font-size:clamp(22px,2.4vw,30px);margin-bottom:14px;">
+        <span class="h-underline">생각이 자라는 순간, <br>세상을 다르게 보기 시작합니다.</span>
+      </h2>
+      <p style="margin:14px 0 20px;color:var(--ink-2)">
+        책모험 연구소의 수업은<br>  
+        <strong><span class="h-underline">생각하는 습관</strong>을 길러주는 과정입니다.<br> </span> 
+        책을 통해 세상을 배우고, <br>세상을 통해 자신을 이해하게 됩니다.
+      </p>
+      <p style="margin:8px 0 28px;color:var(--ink-3)">
+        조용히 읽고, <br>천천히 질문하며, <br><span class="h-underline">스스로 길을 찾아가는 힘.</span>  
+        <br>그 여정의 시작을 함께 해보세요.<br>
+      </p>
+          </div>
+  </div>
+</section>
+
+  <!-- EPILOGUE / CONTACT -->
+  <section id="contact" class="section" style="background:var(--bg-alt)">
+    <div class="container">
+      <div class="content">
+        <p class="badge">Epilogue</p>
+        <h2>상담</h2>
+        <p>모든 상담은 1:1로 진행됩니다.</p>
+
+        <!-- Google Form Embed -->
+        <div style="margin-top:22px;border:1px solid var(--line);border-radius:16px;overflow:hidden;background:#fff">
+          <iframe class="iframe form" title="상담 신청 구글폼" src="https://docs.google.com/forms/d/e/1FAIpQLSek3DMwS9GlI4mCQRLL7RcjjqddsF04aLd5cQ1xfDZ4pqwEqw/viewform?embedded=true"
+></iframe>
+        </div>
+
+        <div style="display:grid;gap:22px;margin-top:22px">
+          <div>
+            <h3>연락처</h3>
+            <p class="muted" style="margin-top:6px">상담 가능 시간: 평일 10:00–19:00</p>
+            <ul style="margin:8px 0 0 18px;color:var(--ink-2)">
+              <li>📞 전화: 010-4094-1666</li>
+              <li>✉️ 이메일: dypapa0309@gmail.com</li>
+            </ul>
+          </div>
+          
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="section" style="padding:28px 0">
+    <div class="container" style="display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap">
+      <p class="muted" style="font-size:14px">© <span id="y"></span> 책모험 연구소 · Book Adventure Lab. All rights reserved.</p>
+      <nav style="display:flex;gap:16px;font-size:14px;color:var(--ink-2)">
+        <a href="#teacher">맨 위로</a>
+        <a href="#programs">레벨 여정</a>
+        <a href="#contact">상담</a>
+      </nav>
+    </div>
+  </footer>
+
+  <!-- Single script (중복 제거) -->
+  <a href="#contact" class="floating-cta">상담하기</a>
+  <script>
+    // Year
+    document.getElementById('y').textContent = new Date().getFullYear();
+    // Progress bar
+    const bar = document.getElementById('progress');
+    const onScroll = () => {
+      const h = document.documentElement;
+      const scrolled = (h.scrollTop) / (h.scrollHeight - h.clientHeight);
+      bar.style.width = (scrolled * 100) + '%';
+    };
+    document.addEventListener('scroll', onScroll, { passive: true });
+    onScroll();
+  </script>
+</body>
+</html>
