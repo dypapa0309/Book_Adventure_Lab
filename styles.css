@@ -685,21 +685,26 @@ details summary{
   gap: 14px;
 }
 
-details summary::-webkit-details-marker{
-  display: none;
+details summary::-webkit-details-marker{ display:none; }
+details summary::marker{ content:""; }
+
+.tip-summary, .research-summary{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  cursor:pointer;
+  gap:10px;
 }
 
-.more-label{
-  font-size: 13px;
-  font-weight: 700;
-  color: var(--ink-3);
-  white-space: nowrap;
+.caret{
+  transition: transform .2s ease;
 }
 
-.when-open{ display:none; }
+details[open] > summary .caret{
+  transform: rotate(180deg);
+}
 
-details[open] .when-closed{ display:none; }
-details[open] .when-open{ display:inline; }
+
 
 details summary::after{
   content: none !important;
@@ -1338,4 +1343,265 @@ footer .muted{
   background: linear-gradient(180deg, var(--brand), var(--brand-2));
   color: #fff;
   border: none;
+}
+
+/* ✅ details 기본 화살표(마커) 제거 */
+.research-toggle summary::-webkit-details-marker{ display:none; }
+.research-toggle summary::marker{ content:""; }
+
+/* ✅ [관련 연구 자료] 옆 📎 */
+.research-label::before{
+  content: "📎 ";
+}
+
+/* ✅ 더보기/닫기 토글 로직 (중복 방지 핵심) */
+.when-open{ display:none; }
+details[open] .when-open{ display:inline; }
+details[open] .when-closed{ display:none; }
+
+/* ✅ 토글 박스 기본 */
+.research-toggle{
+  margin-top: 10px;
+  border-radius: 14px;
+  background: var(--sheet);
+  padding: 10px 12px;
+  border: 1px solid rgba(31,26,20,.10);
+}
+
+.research-toggle summary{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  cursor:pointer;
+  gap: 10px;
+}
+
+/* ✅ 펼친 내용 */
+.research-list{
+  margin-top: 12px;
+  display:grid;
+  gap: 14px;
+}
+
+.research-item{
+  border: 1px solid rgba(31,26,20,.10);
+  border-radius: 14px;
+  padding: 12px 12px;
+  background: rgba(255,255,255,.55);
+}
+
+.research-item h4{
+  font-size: 14px;
+  margin: 0 0 6px;
+}
+
+.research-item p{
+  font-size: 13px;
+  line-height: 1.65;
+  color: var(--ink-3);
+  margin: 0 0 8px;
+}
+
+.paper-link{
+  display:inline-flex;
+  align-items:center;
+  gap: 6px;
+  font-size: 13px;
+  font-weight: 800;
+  color: var(--brand);
+  text-decoration: none;
+}
+
+.paper-link:hover{ text-decoration: underline; }
+
+.source{
+  margin-top: 6px;
+  font-size: 12px;
+  color: var(--ink-4);
+}
+
+/* ✅ 모바일에서 "논문 카드 느낌" 강화 */
+@media (max-width: 560px){
+  details[open] .research-list{
+    gap: 12px;
+  }
+  details[open] .research-item{
+    background: #fffdf6;
+    box-shadow: var(--shadow-1);
+    padding: 14px 14px;
+    border-radius: 16px;
+  }
+  details[open] .paper-link{
+    width: 100%;
+    justify-content: center;
+    padding: 10px 12px;
+    border-radius: 999px;
+    border: 1px solid rgba(31,26,20,.12);
+    background: rgba(255,255,255,.75);
+  }
+}
+
+/* 문단 앞 인라인 숫자 스탬프 */
+.inline-stamp{
+  display: inline-grid;
+  place-items: center;
+  width: 26px;
+  height: 26px;
+  margin-right: 8px;
+
+  border-radius: 999px;
+  background: rgba(195,90,42,.10);
+  border: 1px dashed rgba(195,90,42,.45);
+  color: #9b3e18;
+
+  font-weight: 900;
+  font-size: 12px;
+  line-height: 1;
+}
+
+/* 문단 정렬 안정화 */
+.literacy-point{
+  display: flex;
+  align-items: flex-start;
+  gap: 6px;
+}
+
+.literacy-point .inline-stamp{
+  flex-shrink: 0;
+  margin-top: 2px;
+  margin-left: 12px;   /* ← 이 줄 추가 */
+}
+
+
+.literacy-point{
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;            /* ← 스탬프와 문장 사이 */
+  margin: 10px 0;      /* ← 위아래 숨 고르기 */
+  padding-right: 20px;  /* ← 오른쪽 여백 */
+}
+
+/* BRIDGE */
+.bridge{
+  background: var(--bg-alt);
+  padding: 64px 0;
+}
+
+.bridge-inner{
+  text-align: center;
+  max-width: 52ch;   /* ✅ 시각적 중심 맞추기 */
+  margin: 0 auto;    /* ✅ 블록 자체를 가운데로 */
+}
+
+.bridge-title{
+  font-size: clamp(22px, 2.4vw, 30px);
+  margin: 0 auto 18px;
+  max-width: 52ch;   /* ✅ 제목도 같은 폭 안에 */
+}
+
+.bridge-p{
+  line-height: 1.9;
+  margin-left: auto;   /* ✅ 문단도 텍스트 블록 폭 기준으로 */
+  margin-right: auto;
+}
+
+.bridge-p1{ margin: 14px auto 20px; color: var(--ink-2); }
+.bridge-p2{ margin: 20px auto 28px; color: var(--ink-3); }
+.bridge-p3{ margin: 8px  auto 28px; color: var(--ink-2); font-weight: 500; }
+
+.bridge-photo{
+  text-align: center;
+  margin-top: 40px;
+}
+
+.bridge-img{
+  width: 200px;
+  height: 200px;
+  object-fit: cover;
+  border-radius: 50%;
+  border: 1px solid rgba(31,26,20,.12);
+  background: rgba(255,255,255,.55);
+  margin: 0 auto 10px;
+  transition: transform .3s ease;
+}
+
+.bridge-img:hover{
+  transform: scale(1.03);
+}
+
+.bridge-sign{
+  font-style: italic;
+  color: var(--ink-4);
+  margin-top: 32px;
+}
+
+/* 모바일에서 더 자연스럽게 */
+@media (max-width: 560px){
+  .bridge{ padding: 54px 0; }
+  .bridge-inner{ max-width: 34ch; }
+  .bridge-img{ width: 170px; height: 170px; }
+}
+
+/* TIMELINE WRAPPER */
+.timeline{
+  list-style: none;
+  padding: 0;
+  margin: 48px auto 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;   /* ✅ 전체를 가운데로 */
+  gap: 18px;
+  max-width: 720px;      /* ✅ 기준 폭 */
+}
+
+/* ITEM CARD */
+.timeline .item{
+  position: relative;
+  width: 100%;
+  background: #fffdf6;
+  border: 1px solid rgba(31,26,20,.12);
+  border-radius: 16px;
+  padding: 22px 24px 22px 56px; /* ← 스탬프 공간 */
+  box-shadow: var(--shadow-1);
+}
+
+/* NUMBER STAMP */
+.timeline .stamp{
+  position: absolute;
+  left: 18px;
+  top: 20px;
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  background: #fff;
+  border: 1px solid rgba(31,26,20,.25);
+  color: #8a3f1f;
+  font-size: 13px;
+  font-weight: 700;
+  display: grid;
+  place-items: center;
+}
+
+/* TEXT */
+.timeline h3{
+  margin: 0 0 6px;
+  font-size: 16px;
+}
+
+.timeline p{
+  margin: 0;
+  font-size: 14px;
+  line-height: 1.6;
+  color: var(--ink-2);
+}
+
+/* MOBILE */
+@media (max-width: 560px){
+  .timeline{
+    max-width: 92%;
+  }
+
+  .timeline .item{
+    padding: 20px 20px 20px 52px;
+  }
 }
