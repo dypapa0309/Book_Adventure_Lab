@@ -1,5 +1,8 @@
 
 (() => {
+    if (window.__bal_inited__) return;
+  window.__bal_inited__ = true;
+  
   /* Footer Year */
   const yearEl = document.getElementById('y');
   if (yearEl) yearEl.textContent = new Date().getFullYear();
@@ -146,3 +149,6 @@
   }
 })();
 
+document.querySelectorAll('.y').forEach(el => {
+  el.textContent = new Date().getFullYear();
+});
