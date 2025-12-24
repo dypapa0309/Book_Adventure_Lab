@@ -1605,3 +1605,53 @@ details[open] .when-closed{ display:none; }
     padding: 20px 20px 20px 52px;
   }
 }
+
+/* FIT CHECK */
+.fit-inner{
+  text-align: center;
+}
+
+.fit-title{
+  max-width: 640px;
+  margin: 0 auto 18px;
+}
+
+.fit-list{
+  max-width: 640px;     /* ✅ 가운데 컬럼 폭 */
+  margin: 0 auto 40px;  /* ✅ 가운데 정렬 핵심 */
+  padding: 0;
+}
+
+.fit-list li{
+  list-style: none;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 14px 16px;
+  margin: 12px 0;
+  background: #fffdf6;
+  border: 1px solid rgba(31,26,20,.12);
+  border-radius: 12px;
+  text-align: left;     /* 문장은 읽기 좋게 */
+  color: var(--ink-2);
+}
+
+/* 아이콘 */
+.fit-list.good li::before{
+  content: "✓";
+  color: #2f7d5a;
+  font-weight: 900;
+}
+
+.fit-list.bad li::before{
+  content: "✕";
+  color: #b45309;
+  font-weight: 900;
+}
+
+/* 반응형 */
+@media (max-width: 560px){
+  .fit-list{
+    max-width: 92%;
+  }
+}
