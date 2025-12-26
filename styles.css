@@ -1655,3 +1655,89 @@ details[open] .when-closed{ display:none; }
     max-width: 92%;
   }
 }
+
+/* iOS Safari: input/textarea 16px 미만이면 자동 줌 발생 → 레이아웃 깨짐 방지 */
+@media (max-width: 920px){
+  .sms-modal__textarea{
+    font-size: 16px; /* 핵심 */
+  }
+  .sms-modal__btn{
+    font-size: 16px; /* 버튼도 같이 올려두면 안정적 */
+  }
+}
+
+/* iOS safe-area 대응: 하단 고정 CTA가 바/노치에 안 먹히게 */
+.floating-cta{
+  bottom: calc(16px + env(safe-area-inset-bottom));
+}
+
+/* =========================================================
+   Mobile: 체크/엑스 아이콘과 텍스트 겹침 방지 패치
+   (fit 섹션 리스트 전용)
+========================================================= */
+
+/* 1) 리스트 기본: 아이콘 들어갈 공간 확보 + 줄바꿈 안정화 */
+#fit ul li{
+  position: relative;
+  padding-left: 30px;      /* 아이콘 영역 확보 (겹침 방지 핵심) */
+  line-height: 1.45;       /* 줄바꿈 시에도 덜 겹치게 */
+  word-break: keep-all;    /* 한국어 줄바꿈 자연스럽게 */
+}
+
+/* 2) 아이콘(체크/엑스) 공통 위치/크기 고정 */
+#fit ul li::before{
+  position: absolute;
+  left: 0;
+  top: 0.15em;             /* 첫 줄 기준으로 살짝 내려서 정렬 */
+  width: 20px;
+  height: 20px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: none;
+}
+
+/* 3) 모바일에서 더 자주 겹치니 조금 더 넉넉히 */
+@media (max-width: 768px){
+  #fit ul li{
+    padding-left: 34px;
+  }
+  #fit ul li::before{
+    top: 0.18em;
+  }
+}
+
+/* =========================================================
+   FIT 섹션: 체크/엑스 아이콘 세로정렬 깔끔하게 (flex 방식)
+========================================================= */
+
+#fit ul li{
+  /* 기존 absolute 레이아웃 해제하고 flex로 정렬 */
+  display: flex;
+  align-items: center;     /* ✅ 아이콘이 박스 가운데에 딱 맞게 */
+  gap: 12px;               /* 아이콘-텍스트 간격 */
+  padding-left: 16px;      /* 기존 아이콘 공간 패딩 제거 */
+}
+
+#fit ul li::before{
+  position: static;        /* ✅ absolute 제거 */
+  width: 22px;
+  height: 22px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 22px;          /* ✅ 아이콘 폭 고정(줄바꿈 흔들림 방지) */
+  transform: translateY(-0.5px); /* 미세 튜닝(필요 없으면 삭제) */
+}
+
+/* 문장이 길어서 2줄 이상 될 때도 보기 좋게 */
+#fit ul li{
+  line-height: 1.45;
+}
+
+/* 모바일에서 간격 조금 더 확보 */
+@media (max-width: 768px){
+  #fit ul li{
+    gap: 14px;
+  }
+}
