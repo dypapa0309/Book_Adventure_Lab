@@ -1,0 +1,161 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>신청 완료 | 책모험 연구소</title>
+  <meta name="robots" content="noindex, nofollow" />
+
+  <!-- ✅ dataLayer 초기화 + 추적 유틸 (lead_complete 발생용) -->
+  <script>window.dataLayer = window.dataLayer || [];</script>
+  <script src="/assets/js/analytics.js"></script>
+
+  <!-- Danggeun Market Code -->
+  <script src="https://karrot-pixel.business.daangn.com/karrot-pixel.js"></script>
+  <script>
+    window.karrotPixel.init('1776331082027886001');
+    window.karrotPixel.track('ViewPage');
+  </script>
+  <!-- End Danggeun Market Code -->
+
+  <!-- GTM_HEAD_SNIPPET_START -->
+  <!-- TODO: GTM head snippet을 여기에 붙여넣으세요 -->
+  <!-- GTM_HEAD_SNIPPET_END -->
+
+  <link rel="stylesheet" href="/assets/css/common.css" />
+
+  <style>
+    /* 완료 페이지 전용 최소 스타일 */
+    .thanks-wrap {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 40px 20px;
+      background: var(--bg);
+      text-align: center;
+    }
+
+    .thanks-card {
+      width: min(100%, 560px);
+      background: var(--sheet);
+      border: 1px solid rgba(31,26,20,.14);
+      border-radius: var(--r-lg);
+      padding: 48px 32px;
+      box-shadow: var(--shadow-2);
+    }
+
+    .thanks-icon {
+      font-size: 48px;
+      margin-bottom: 20px;
+      display: block;
+    }
+
+    .thanks-h1 {
+      font-family: var(--font-title);
+      font-size: clamp(22px, 3vw, 28px);
+      font-weight: 900;
+      color: var(--ink);
+      margin: 0 0 16px;
+    }
+
+    .thanks-desc {
+      color: var(--ink-2);
+      font-size: 16px;
+      line-height: 1.75;
+      margin: 0 0 28px;
+    }
+
+    .thanks-note {
+      font-size: 13px;
+      color: var(--ink-3);
+      margin-top: 24px;
+      line-height: 1.6;
+    }
+
+    .thanks-btn-row {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      justify-content: center;
+      margin-top: 28px;
+    }
+
+    @media (max-width: 420px) {
+      .thanks-card { padding: 36px 20px; }
+      .thanks-btn-row .btn,
+      .thanks-btn-row .btn-outline { width: 100%; }
+    }
+  </style>
+</head>
+
+<body>
+  <!-- GTM_BODY_NOSCRIPT_START -->
+  <!-- TODO: GTM noscript snippet을 여기에 붙여넣으세요 -->
+  <!-- GTM_BODY_NOSCRIPT_END -->
+
+  <main class="thanks-wrap">
+    <div class="thanks-card">
+      <span class="thanks-icon" aria-hidden="true">✅</span>
+      <h1 class="thanks-h1">신청이 완료되었습니다.</h1>
+      <p class="thanks-desc">
+        남겨주신 내용을 확인한 뒤<br>
+        빠른 시일 내에 연락드리겠습니다.<br><br>
+        학년과 희망 수업 유형을 바탕으로<br>
+        맞춤 상담을 안내드립니다.
+      </p>
+
+      <div class="thanks-btn-row">
+        <a class="btn" href="/">홈으로 돌아가기</a>
+        <a class="btn-outline" href="/test/index.html">독해력 테스트 해보기</a>
+      </div>
+
+      <p class="thanks-note">
+        문의가 있으시면 전화 상담도 가능합니다.<br>
+        <a href="tel:01040941666" style="font-weight:800;color:var(--brand)">010-4094-1666</a>
+        &nbsp;(평일 10:00–19:00)
+      </p>
+    </div>
+  </main>
+
+  <!-- ✅ lead_complete 이벤트 발생 스크립트
+       · sessionStorage 'bl_submitted' 가 있을 때만 1회 발생
+       · 새로고침 시 중복 발생 방지 (키 삭제)
+       · 직접 /thanks/ 접근 시 이벤트 미발생 (의도적) -->
+  <script>
+  (function () {
+    'use strict';
+    var track = window.trackBookLabEvent;
+    if (typeof track !== 'function') return;
+
+    var submitted = false;
+    try { submitted = sessionStorage.getItem('bl_submitted') === '1'; } catch {}
+
+    if (!submitted) return;
+
+    /* 즉시 키 삭제 → 새로고침 중복 방지 */
+    try { sessionStorage.removeItem('bl_submitted'); } catch {}
+
+    /* ── 당근 전환 이벤트 (상담/체험수업 신청 완료) ─────────────
+       karrotPixel 이 head 에서 이미 init 됨 → 바로 track 호출
+       당근 관리자 → 전환 → 이벤트 목록에서 'Purchase' 확인 가능
+    ──────────────────────────────────────────────────── */
+    if (typeof window.karrotPixel !== 'undefined') {
+      window.karrotPixel.track('Purchase');
+    }
+
+    /* dataLayer lead_complete (GTM/GA4 모두 수신) */
+    track('lead_complete', {
+      form_name:     'consult',
+      complete_path: '/thanks/'
+      /* inquiry_type 은 sessionStorage 에 따로 저장하지 않음
+         (개인정보 최소화 원칙 — 학년/유형은 Netlify 대시보드에서 확인) */
+    }, { onlyOnce: true });
+
+  })();
+  </script>
+
+  <script src="/assets/js/core/common.js" defer></script>
+</body>
+</html>

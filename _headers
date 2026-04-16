@@ -1,0 +1,43 @@
+# ==========================================================
+# _headers — Book Adventure Lab 보안 헤더 (Netlify)
+#
+# 적용 범위: 모든 경로 /*
+# 참고: https://docs.netlify.com/routing/headers/
+#
+# CSP(Content-Security-Policy) 주의 사항
+# ----------------------------------------
+# · 당근 픽셀 도메인 확인 후 script-src / connect-src 에 추가하세요.
+#   현재 *.daangn.com 으로 설정되어 있습니다.
+# · GTM 은 googletagmanager.com 이 포함되어 있습니다.
+# · 'unsafe-inline' 은 GTM 인라인 스크립트와 inline style 속성 때문에 필요합니다.
+#   추후 GTM 설정에서 nonce를 사용하면 제거 가능합니다.
+# ==========================================================
+
+/*
+  # ── HTTPS 강제 (Netlify는 자동 HTTPS, 헤더로 추가 강제)
+  Strict-Transport-Security: max-age=31536000; includeSubDomains; preload
+
+  # ── 클릭재킹 방지
+  X-Frame-Options: DENY
+
+  # ── MIME 스니핑 방지
+  X-Content-Type-Options: nosniff
+
+  # ── XSS 필터 (구형 브라우저용, 최신 CSP와 병행)
+  X-XSS-Protection: 1; mode=block
+
+  # ── 레퍼러 정보 최소화 (광고 유입 경로 추적 영향 없음)
+  Referrer-Policy: strict-origin-when-cross-origin
+
+  # ── 불필요한 브라우저 권한 차단
+  Permissions-Policy: camera=(), microphone=(), geolocation=(), payment=()
+
+  # ── Content Security Policy
+  #    스크립트: self + GTM + 당근픽셀 + unsafe-inline(GTM 필수)
+  #    스타일: self + Google Fonts + unsafe-inline(inline style 속성)
+  #    폰트: self + Google Fonts CDN
+  #    이미지: self + data: + https:(OG 이미지 등 외부 이미지)
+  #    연결: self + Google Analytics + 당근 트래킹
+  #    프레임: none (iframe 완전 차단)
+  #    폼액션: self (Netlify Forms 제출)
+  Content-Security-Policy: default-src 'self'; script-src 'self' https://www.googletagmanager.com https://*.daangn.com 'unsafe-inline'; style-src 'self' https://fonts.googleapis.com 'unsafe-inline'; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https:; connect-src 'self' https://www.google-analytics.com https://analytics.google.com https://region1.google-analytics.com https://*.daangn.com; frame-src 'none'; object-src 'none'; base-uri 'self'; form-action 'self';
