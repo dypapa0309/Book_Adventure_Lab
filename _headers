@@ -40,4 +40,4 @@
   #    연결: self + Google Analytics + 당근 트래킹
   #    프레임: none (iframe 완전 차단)
   #    폼액션: self (Netlify Forms 제출)
-  Content-Security-Policy: default-src 'self'; script-src 'self' https://www.googletagmanager.com https://*.daangn.com 'unsafe-inline'; style-src 'self' https://fonts.googleapis.com 'unsafe-inline'; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https:; connect-src 'self' https://www.google-analytics.com https://analytics.google.com https://region1.google-analytics.com https://*.daangn.com; frame-src 'none'; object-src 'none'; base-uri 'self'; form-action 'self'; upgrade-insecure-requests;
+  Content-Security-Policy: default-src 'self'; script-src 'self' https://www.googletagmanager.com https://*.daangn.com 'unsafe-inline'; style-src 'self' https://fonts.googleapis.com 'unsafe-inline'; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https:; connect-src 'self' https://www.google-analytics.com https://analytics.google.com https://region1.google-analytics.com https://*.daangn.com https://api.web3forms.com; frame-src 'none'; object-src 'none'; base-uri 'self'; form-action 'self'; upgrade-insecure-requests;
