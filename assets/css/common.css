@@ -2160,3 +2160,75 @@ details[open] .when-closed{ display:none; }
 @media (max-width: 560px) {
   .tab-btn { padding: 10px 18px; font-size: 15px; }
 }
+
+/* ==========================================================
+   ★ 모바일 가독성 · 단락 구분 개선
+   ========================================================== */
+
+@media (max-width: 768px) {
+
+  /* ① 줄간격 확대: 텍스트가 덜 붙어 보임 */
+  body {
+    line-height: 1.85;
+  }
+
+  /* ② 단락 아래 여백 넉넉히 */
+  p {
+    margin-bottom: 26px;
+  }
+
+  .content > p + p {
+    margin-top: 20px;
+  }
+
+  /* ③ lead 단락 위아래 더 여유 */
+  .lead {
+    margin-top: 20px;
+    margin-bottom: 30px;
+  }
+
+  /* ④ hero 내 단락 사이 분리선 */
+  .hero .content p + p {
+    margin-top: 28px;
+    padding-top: 24px;
+    border-top: 1px solid rgba(31,26,20,.08);
+  }
+
+  /* ⑤ 섹션 경계 강화 */
+  .fit-section,
+  #guide,
+  #bridge,
+  #contact {
+    border-top: 2px solid rgba(31,26,20,.11);
+  }
+
+  /* ⑥ 탭 콘텐츠 내 h3 위 구분선으로 레벨 블록 나누기 */
+  .tab-pane h3 {
+    margin-top: 44px;
+    padding-top: 28px;
+    border-top: 1px solid rgba(31,26,20,.10);
+  }
+
+  /* ⑦ h2 아래 숨표 */
+  h2 {
+    margin-bottom: 18px;
+  }
+}
+
+@media (max-width: 480px) {
+
+  /* ⑧ 초소형 화면: 단락 여백 추가 확보 */
+  p {
+    margin-bottom: 30px;
+  }
+
+  .hero .content p + p {
+    margin-top: 32px;
+    padding-top: 28px;
+  }
+
+  /* ⑨ 컨테이너 좌우 여백 확보 */
+  .container {
+    width: min(var(--w), calc(100% - 24px));
+  }
+}
