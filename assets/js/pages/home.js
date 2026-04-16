@@ -356,7 +356,7 @@
       /* 전화번호 정규화 후 재주입 */
       data.set('phone', rawPhone);
 
-      fetch('/', {
+      fetch('https://api.web3forms.com/submit', {
         method: 'POST',
         headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
         body: new URLSearchParams(data).toString()
