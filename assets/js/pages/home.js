@@ -372,7 +372,24 @@
   }
 
   /* =========================================================
-     9) Footer: Threads (공용 모달)
+     9) 탭 전환 (수업 안내 섹션)
+  ========================================================= */
+  const tabBtns  = document.querySelectorAll('.tab-btn');
+  const tabPanes = document.querySelectorAll('.tab-pane');
+
+  tabBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      tabBtns.forEach(b => { b.classList.remove('active'); b.setAttribute('aria-selected','false'); });
+      tabPanes.forEach(p => p.classList.remove('active'));
+      btn.classList.add('active');
+      btn.setAttribute('aria-selected','true');
+      const target = document.getElementById(btn.dataset.tab);
+      if (target) target.classList.add('active');
+    });
+  });
+
+  /* =========================================================
+     10) Footer: Threads (공용 모달)
   ========================================================= */
   const threadsBtn = document.getElementById('btn-threads');
 
