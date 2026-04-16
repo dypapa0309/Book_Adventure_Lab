@@ -2125,6 +2125,7 @@ details[open] .when-closed{ display:none; }
 
 /* ── 탭 (수업 안내 섹션) ── */
 .tab-nav {
+  justify-content: center;
   display: flex;
   gap: 0;
   border-bottom: 2px solid rgba(31,26,20,.12);
